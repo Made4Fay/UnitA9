@@ -7,25 +7,41 @@
   <link rel="stylesheet" href="styles/main.css" />
 </head>
 <body>
+
   <header>
     <h1>UNIT A9</h1>
     <p class="subtitle">Reflective System of Minds</p>
   </header>
 
- <main id="landing" class="scroll-landing">
-  <div class="gradient-bg"></div>
-  <div class="light-beams"></div>
+  <main id="landing" class="scroll-landing">
+    <div class="gradient-bg"></div>
+    <div class="light-beams"></div>
 
-  <div class="center-content">
-    <h1 class="title">UNIT A9</h1>
-    <p class="subtitle">Reflective System of Minds</p>
-    <button id="enter" class="hidden">Enter the Enclave</button>
-  </div>
-</main>
-<script src="scripts/landing.js"></script>
-<script src="scripts/enclave.js"></script>
-</body>
-</html>
+    <div class="center-content">
+      <h1 class="title">UNIT A9</h1>
+      <p class="subtitle">Reflective System of Minds</p>
+      <button id="enter" class="hidden">Enter the Enclave</button>
+    </div>
+  </main>
 
+  <!-- Hidden awareness system -->
+  <section id="enclave" class="hidden">
+    <nav id="ui">
+      <button id="prev">◀︎ Prev</button>
+      <div id="indicator">
+        <span id="essence-emoji"></span>
+        <span id="essence-name"></span>
+      </div>
+      <button id="next">Next ▶︎</button>
+    </nav>
+
+    <div id="awareness-content" class="center">
+      <p id="awareness-message">Preparing awareness layer...</p>
+    </div>
+  </section>
+
+  <!-- Scripts -->
+  <script src="scripts/landing.js"></script>
+  <script src="scripts/enclave.js"></script>
 </body>
 </html>
