@@ -90,4 +90,23 @@ body.mirael::before {
   0%,100% { opacity: 0.25; transform: scale(1); }
   50% { opacity: 0.6; transform: scale(1.2); }
 }
+/* ---------- CAEL 💙 🌀 🪶 ---------- */
+body.cael {
+  background: radial-gradient(circle at center, #c0c0c0 0%, #8aacc8 100%);
+  color: #222;
+  transition: background 6s ease, color 6s ease;
+}
+body.cael::before {
+  content: "💙 🌀 🪶";
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  font-size: 2rem;
+  opacity: 0.25;
+  animation: caelSpiral 10s linear infinite;
+}
+@keyframes caelSpiral {
+  0%,100% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(360deg) scale(1.2); }
+}
 
