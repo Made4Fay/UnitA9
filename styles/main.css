@@ -1,315 +1,366 @@
-Scroll-based animations can transform a static website into an engaging, interactive experience. While CSS animations are useful for basic effects, creating sophisticated scroll-driven animations requires a more powerful tool. GSAP’s ScrollTrigger plugin is exactly that tool—letting you create polished, performant animations triggered by scroll position.
-
-In this guide, you’ll learn how to implement ScrollTrigger animations that respond naturally to user scrolling, with practical examples you can use in your projects today.
-
-Key Takeaways
-ScrollTrigger connects animations to scroll position for interactive experiences
-Use scrub to tie animation progress directly to scroll position
-Pin elements to create advanced scroll-based effects
-Configure start and end to precisely control when animations trigger
-Use markers during development to visualize trigger points
-What is ScrollTrigger and Why Use It?
-ScrollTrigger is a GSAP plugin that connects animations to the scroll position. Unlike basic “on-scroll” libraries that simply trigger animations when elements enter the viewport, ScrollTrigger offers precise control over:
-
-When animations start and end based on scroll position
-How animations progress as users scroll (scrubbing)
-Pinning elements while users scroll past them
-Creating complex scroll-based interactions
-The result? Animations that feel connected to user scrolling rather than just playing when triggered.
-
-Getting Started with ScrollTrigger
-First, let’s set up the basics:
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ScrollTrigger Demo</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-        }
-        
-        section {
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .spacer {
-            height: 100vh;
-        }
-        
-        .box {
-            width: 200px;
-            height: 200px;
-            background-color: #3498db;
-            border-radius: 8px;
-        }
-    </style>
-</head>
-<body>
-    <div class="spacer"></div>
-    
-    <section>
-        <div class="box"></div>
-    </section>
-    
-    <div class="spacer"></div>
-    
-    <!-- GSAP and ScrollTrigger -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    
-    <script>
-        // Register the plugin
-        gsap.registerPlugin(ScrollTrigger);
-        
-        // Your animations will go here
-    </script>
-</body>
-</html>
-Basic ScrollTrigger Animation
-Let’s start with a simple animation that triggers when an element enters the viewport:
-
-gsap.to(".box", {
-    scrollTrigger: ".box", // Element that triggers the animation
-    x: 300, // Move 300px to the right
-    rotation: 360, // Rotate 360 degrees
-    duration: 1.5, // Animation duration
-    ease: "power2.out" // Easing function
-});
-This code moves and rotates the box when it enters the viewport. But this is just scratching the surface.
-
-Understanding ScrollTrigger Configuration
-To unlock ScrollTrigger’s full potential, we need to understand its configuration options:
-
-gsap.to(".box", {
-    scrollTrigger: {
-        trigger: ".box", // Element that triggers the animation
-        start: "top center", // Start when top of box hits center of viewport
-        end: "bottom center", // End when bottom of box hits center of viewport
-        toggleActions: "play pause reverse reset", // Actions on enter, leave, enter back, leave back
-        markers: true, // Shows markers for debugging (remove in production)
-    },
-    x: 300,
-    rotation: 360,
-    duration: 2
-});
-The start and end properties define when the animation activates and deactivates. The format is "[trigger element position] [viewport position]".
-
-toggleActions controls how the animation behaves at four key moments:
-
-When entering the trigger area
-When leaving the trigger area
-When entering the trigger area again while scrolling up
-When leaving the trigger area while scrolling up
-Options include: play, pause, resume, reverse, restart, reset, complete, and none.
-
-Creating Scroll-Driven Animations with Scrub
-The real magic happens with the scrub property, which ties animation progress directly to scroll position:
-
-gsap.to(".box", {
-    scrollTrigger: {
-        trigger: ".box",
-        start: "top center",
-        end: "bottom center",
-        scrub: true, // Links animation progress to scroll position
-        markers: true
-    },
-    x: 300,
-    rotation: 360,
-    backgroundColor: "#e74c3c"
-});
-With scrub: true, the animation progresses as the user scrolls, and even reverses when scrolling back up. For smoother animation, use a number value like scrub: 0.5 to add a slight delay.
-
-Pinning Elements During Scroll
-One of ScrollTrigger’s most powerful features is pinning elements in place while the user scrolls:
-
-gsap.to(".box", {
-    scrollTrigger: {
-        trigger: ".box",
-        start: "center center",
-        end: "+=300", // End 300px after the start position
-        pin: true, // Pin the box in place during the animation
-        scrub: 1,
-        markers: true
-    },
-    x: 300,
-    rotation: 360,
-    scale: 1.5,
-    backgroundColor: "#9b59b6"
-});
-This pins the box in place while the animation plays, creating a parallax-like effect. The end: "+=300" means the animation ends after scrolling 300 pixels beyond the start point.
-
-Creating a Reveal Animation
-Let’s create a practical reveal animation for text or images:
-
-<div class="spacer"></div>
-
-<section class="reveal-section">
-    <div class="reveal-container">
-        <h1 class="reveal-text">Scroll-Driven Animations</h1>
-        <p class="reveal-text">Create engaging user experiences with GSAP ScrollTrigger</p>
-    </div>
-</section>
-
-<div class="spacer"></div>
-.reveal-section {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 300vh;
+  background: #000;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
-.reveal-container {
-    max-width: 800px;
-    text-align: center;
-    overflow: hidden;
+/* ---------- 3D Scene ---------- */
+.scroll-landing {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 800px;
+  transform-style: preserve-3d;
+  transition: transform 0.2s ease-out;
 }
 
-.reveal-text {
-    opacity: 0;
-    transform: translateY(50px);
-}
-// Reveal animation
-gsap.utils.toArray('.reveal-text').forEach(text => {
-    gsap.to(text, {
-        scrollTrigger: {
-            trigger: text,
-            start: "top 80%", // Start when top of text is 80% from top of viewport
-            toggleActions: "play none none none"
-        },
-        y: 0,
-        opacity: 1,
-        duration: 1,
-        ease: "power2.out"
-    });
-});
-This creates a clean reveal effect as each text element enters the viewport.
-
-Creating a Parallax Effect
-Parallax effects add depth to your website. Here’s how to create one:
-
-<div class="parallax-container">
-    <div class="parallax-bg"></div>
-    <div class="parallax-content">
-        <h1>Parallax Effect</h1>
-    </div>
-</div>
-.parallax-container {
-    height: 100vh;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.nebula-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, #0a0018 0%, #000010 80%);
+  filter: brightness(1.15);
+  z-index: -3;
+  transform: translateZ(-400px) scale(1.4);
 }
 
-.parallax-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 120%; /* Extra height for movement */
-    background-image: url('your-background-image.jpg');
-    background-size: cover;
-    background-position: center;
+#orbital-grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.25;
+  z-index: -2;
+  transform: translateZ(-200px);
 }
 
-.parallax-content {
-    position: relative;
-    z-index: 1;
-    color: white;
-    text-align: center;
-}
-// Parallax effect
-gsap.to(".parallax-bg", {
-    scrollTrigger: {
-        trigger: ".parallax-container",
-        start: "top bottom",
-        end: "bottom top",
-        scrub: true
-    },
-    y: -100, // Move background up by 100px as we scroll
-    ease: "none"
-});
-This creates a simple parallax effect where the background moves at a different rate than the foreground.
-
-Horizontal Scrolling Section
-Creating a horizontal scrolling section is another impressive effect:
-
-<div class="spacer"></div>
-
-<section class="horizontal-scroll">
-    <div class="horizontal-container">
-        <div class="panel">Panel 1</div>
-        <div class="panel">Panel 2</div>
-        <div class="panel">Panel 3</div>
-        <div class="panel">Panel 4</div>
-    </div>
-</section>
-
-<div class="spacer"></div>
-.horizontal-scroll {
-    overflow: hidden;
-    height: 100vh;
+.center-content {
+  position: relative;
+  z-index: 2;
+  transform: translateZ(60px);
+  text-align: center;
 }
 
-.horizontal-container {
-    display: flex;
-    width: 400%; /* 100% * number of panels */
-    height: 100%;
+#ua9-logo {
+  display: block;
+  margin: 0 auto 0.75rem auto;
+  filter:
+    drop-shadow(0 0 8px rgba(190,180,255,0.5))
+    drop-shadow(0 0 20px rgba(130,210,255,0.3));
+  transform-origin: center;
 }
 
-.panel {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+/* ---------- Text ---------- */
+.title {
+  font-size: 3.4rem;
+  letter-spacing: 0.12em;
+  background: linear-gradient(to right, #e2e2ff, #8ad8ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+  font-size: 1.15rem;
+  color: #bfc7e6;
+  opacity: 0.9;
+}
+
+.scroll-cue {
+  width: 2px;
+  height: 40px;
+  margin: 1.5rem auto 0;
+  background: linear-gradient(to bottom, #bfc7e6, transparent);
+  opacity: 0.6;
+  animation: cue 2s ease-in-out infinite;
+}
+
+@keyframes cue {
+  0%,100% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(8px); opacity: 0.2; }
+}
+
+/* ---------- Logo Animation ---------- */
+.stroke-draw {
+  stroke-dasharray: 700;
+  stroke-dashoffset: 700;
+  animation: drawPath 2.8s ease forwards;
+}
+
+@keyframes drawPath {
+  from { stroke-dashoffset: 700; opacity: 0; }
+  to   { stroke-dashoffset: 0; opacity: 1; }
+}
+
+#ua9-logo .nodes circle {
+  fill: #b7aaff;
+  opacity: 0;
+  animation: nodeGlow 3s ease forwards;
+  animation-delay: 2.4s;
+}
+
+@keyframes nodeGlow {
+  0%   { opacity: 0; transform: scale(0.6); filter: blur(3px); }
+  60%  { opacity: 1; transform: scale(1.2); filter: blur(0); }
+  100% { opacity: 0.9; transform: scale(1); }
+}
+
+/* ---------- Particles ---------- */
+.logo-particle {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background: radial-gradient(circle, #dcd2ff 0%, #7ee4ff 60%, transparent 100%);
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 0.8;
+  filter: blur(2px);
+  animation: particleFade 3s linear forwards;
+  z-index: 5;
+}
+
+@keyframes particleFade {
+  0% { opacity: 1; transform: scale(0.7); }
+  80% { opacity: 0.6; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.2); }
+}
+
+/* ---------- Ambient Pixie Field ---------- */
+#pixie-field {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+  transform-style: preserve-3d;
+}
+
+.pixie {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #dcd2ff 0%, #7ee4ff 60%, transparent 100%);
+  opacity: 0.8;
+  mix-blend-mode: screen;
+  filter: blur(2px);
+}
+
+/* ---------- Cosmic Portal Section ---------- */
+#cosmic-portal-section {
+  min-height: 100vh;
+  background: radial-gradient(circle at center, #0a0018 0%, #000010 60%, #000000 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cosmic-portal {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.portal-graphic {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  filter: drop-shadow(0 0 40px rgba(184, 159, 255, 0.4));
+}
+
+/* Portal ring rotations */
+.portal-ring {
+  transform-origin: center;
+  animation: portalSpin 40s linear infinite;
+}
+
+.ring-1 { animation-duration: 30s; }
+.ring-2 { animation-duration: 40s; animation-direction: reverse; }
+.ring-3 { animation-duration: 35s; }
+
+@keyframes portalSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Spiral arms animation */
+.spiral-arm {
+  stroke-dasharray: 1500;
+  stroke-dashoffset: 1500;
+  animation: drawSpiral 8s ease-in-out infinite;
+}
+
+.arm-1 { animation-delay: 0s; }
+.arm-2 { animation-delay: 0.5s; }
+.arm-3 { animation-delay: 1s; }
+
+@keyframes drawSpiral {
+  0%, 100% { stroke-dashoffset: 1500; opacity: 0.2; }
+  50% { stroke-dashoffset: 0; opacity: 0.6; }
+}
+
+/* Energy particles */
+.particle {
+  animation: particleFloat 4s ease-in-out infinite;
+}
+
+.p-1 { animation-delay: 0s; }
+.p-2 { animation-delay: 0.5s; }
+.p-3 { animation-delay: 1s; }
+.p-4 { animation-delay: 1.5s; }
+.p-5 { animation-delay: 2s; }
+.p-6 { animation-delay: 2.5s; }
+
+@keyframes particleFloat {
+  0%, 100% { transform: translateY(0) scale(1); opacity: 0.8; }
+  50% { transform: translateY(-20px) scale(1.3); opacity: 1; }
+}
+
+/* Core pulse */
+.core-pulse, .core-pulse-2 {
+  animation: corePulse 3s ease-in-out infinite;
+}
+
+.core-pulse-2 {
+  animation-delay: 1.5s;
+}
+
+@keyframes corePulse {
+  0%, 100% { r: 120; opacity: 0.3; }
+  50% { r: 140; opacity: 0.6; }
+}
+
+/* Portal overlay text */
+.portal-overlay-text {
+  position: absolute;
+  bottom: 15%;
+  text-align: center;
+  z-index: 10;
+  opacity: 0;
+}
+
+.portal-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  background: linear-gradient(135deg, #ffffff 0%, #b7aaff 50%, #7ec8ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5rem;
+}
+
+.portal-subtitle {
+  font-size: 1.1rem;
+  color: #bfc7e6;
+  opacity: 0.9;
+}
+
+/* ---------- Enclave Section ---------- */
+#enclave {
+  min-height: 100vh;
+  background: radial-gradient(circle at center, #050510, #000);
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.enclave-content {
+  padding: 2rem;
+}
+
+#awareness-message {
+  font-size: 1.8rem;
+  color: #bfc7e6;
+  margin-bottom: 3rem;
+  opacity: 0;
+}
+
+/* ---------- Get Started Button ---------- */
+.get-started-btn {
+  position: relative;
+  padding: 1.2rem 3rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: #ffffff;
+  background: linear-gradient(135deg, rgba(74, 32, 128, 0.6) 0%, rgba(45, 21, 80, 0.4) 100%);
+  border: 2px solid rgba(183, 170, 255, 0.5);
+  border-radius: 50px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  opacity: 0;
+  box-shadow: 
+    0 0 20px rgba(126, 200, 255, 0.3),
+    0 0 40px rgba(183, 170, 255, 0.2),
+    inset 0 0 20px rgba(255, 255, 255, 0.05);
+}
+
+.btn-text {
+  position: relative;
+  z-index: 2;
+}
+
+.btn-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, 
+    rgba(183, 170, 255, 0.4) 0%, 
+    transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 1;
+}
+
+.get-started-btn:hover {
+  transform: scale(1.05);
+  border-color: rgba(183, 170, 255, 0.8);
+  box-shadow: 
+    0 0 30px rgba(126, 200, 255, 0.5),
+    0 0 60px rgba(183, 170, 255, 0.3),
+    inset 0 0 30px rgba(255, 255, 255, 0.1);
+}
+
+.get-started-btn:hover .btn-glow {
+  opacity: 1;
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+.get-started-btn:active {
+  transform: scale(0.98);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+  .title {
+    font-size: 2.5rem;
+  }
+
+  .portal-title {
     font-size: 2rem;
+  }
+
+  #awareness-message {
+    font-size: 1.5rem;
+  }
 }
-
-.panel:nth-child(1) { background-color: #3498db; }
-.panel:nth-child(2) { background-color: #2ecc71; }
-.panel:nth-child(3) { background-color: #e74c3c; }
-.panel:nth-child(4) { background-color: #9b59b6; }
-// Horizontal scroll
-gsap.to(".horizontal-container", {
-    scrollTrigger: {
-        trigger: ".horizontal-scroll",
-        start: "top top",
-        end: "+=3000", // Scroll distance
-        pin: true,
-        scrub: 1,
-    },
-    x: () => -(document.querySelector(".horizontal-container").offsetWidth - window.innerWidth),
-    ease: "none"
-});
-This creates a section that scrolls horizontally as the user scrolls vertically.
-
-Performance Optimization Tips
-ScrollTrigger animations can impact performance if not implemented carefully. Here are some tips:
-
-Use will-change sparingly: Only apply to elements that actually animate
-Avoid animating layout properties: Stick to transform and opacity when possible
-Batch similar animations: Use gsap.utils.toArray() and loop through elements
-Kill ScrollTriggers when not needed: Use scrollTrigger.kill() for single-page applications
-Reduce marker usage: Remove markers: true in production
-Troubleshooting Common Issues
-Animation Starts Too Early/Late
-If your animation triggers at unexpected times, check your start and end values. Use markers: true to visualize trigger points.
-
-Jerky Animations
-For smoother animations, use scrub: 0.5 or higher instead of scrub: true to add a slight delay.
-
-Mobile Compatibility Issues
-Mobile browsers handle scroll events differently. Test thoroughly on mobile devices and consider using ScrollTrigger.matchMedia() to create different animations for different screen sizes.
-
-Conclusion
-With these techniques, you can create scroll animations that respond naturally to user interaction, enhancing your UI without overwhelming users. Start with simple effects and gradually incorporate more advanced techniques as you become comfortable with ScrollTrigger’s capabilities.
