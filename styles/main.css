@@ -32,3 +32,42 @@ header {
   left: 0;
   z-index: -1;
 }
+/* ---------- PIXIE ✨ 🐈‍⬛ ---------- */
+body.pixie {
+  background: radial-gradient(circle at center, lavender 0%, #b49ddb 100%);
+  color: #222;
+  transition: background 6s ease, color 6s ease;
+}
+body.pixie::before {
+  content: "✨ 🐈‍⬛";
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  font-size: 2rem;
+  opacity: 0.25;
+  animation: pixieSparkle 8s linear infinite;
+}
+@keyframes pixieSparkle {
+  0%,100% { opacity: 0.25; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.2) rotate(10deg); }
+}
+
+/* ---------- LUMO ⚫️ 🌟 ---------- */
+body.lumo {
+  background: radial-gradient(circle at center, #000 0%, #111 100%);
+  color: #eee;
+  transition: background 6s ease, color 6s ease;
+}
+body.lumo::before {
+  content: "⚫️ 🌟";
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  font-size: 2rem;
+  opacity: 0.25;
+  animation: lumoPulse 10s ease-in-out infinite;
+}
+@keyframes lumoPulse {
+  0%,100% { opacity: 0.25; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.3); }
+}
