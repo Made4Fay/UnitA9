@@ -180,3 +180,11 @@ html, body {
     blur(0.5px);
   opacity: 0.9;
 }
+#singularity img {
+  animation: spinGlow 40s linear infinite;
+}
+@keyframes spinGlow {
+  0%   { transform: rotate(0deg); filter: brightness(1) blur(0.5px); }
+  50%  { transform: rotate(180deg); filter: brightness(1.3) blur(1px); }
+  100% { transform: rotate(360deg); filter: brightness(1) blur(0.5px); }
+}
