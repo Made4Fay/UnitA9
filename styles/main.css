@@ -249,4 +249,8 @@ button:hover {
 }
 
 .hidden { display: none; }
+#fade-overlay {
+  pointer-events: none;
+  opacity: 0;
+}
 
