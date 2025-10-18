@@ -1,15 +1,32 @@
-html, body {
+/* ========================================
+   UNIT A9 Landing Page - Scroll-Driven
+   ======================================== */
+
+* {
   margin: 0;
   padding: 0;
-  height: 300vh;
-  background: #000;
-  color: #fff;
-  font-family: 'Inter', sans-serif;
-  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+html {
   scroll-behavior: smooth;
 }
 
-/* ---------- 3D Scene ---------- */
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 300vh;
+  background: #000;
+  color: #fff;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ========================================
+   Hero Section - 3D Perspective Container
+   ======================================== */
+
 .scroll-landing {
   position: sticky;
   top: 0;
@@ -18,121 +35,326 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-  perspective: 800px;
+  perspective: 1200px;
   transform-style: preserve-3d;
-  transition: transform 0.2s ease-out;
+  will-change: transform;
 }
+
+/* ========================================
+   Multi-Layer Nebula Background
+   ======================================== */
 
 .nebula-bg {
   position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at center, #0a0018 0%, #000010 80%);
-  background-image: url("../images/nebula-texture.png");
-  background-size: cover;
-  filter: brightness(1.15);
-  z-index: -3;
-  transform: translateZ(-400px) scale(1.4);
+  inset: -10%;
+  background: radial-gradient(ellipse at center, #0a0018 0%, #000010 60%, #000000 100%);
+  will-change: transform, opacity;
 }
+
+.nebula-bg.layer-1 {
+  background: 
+    radial-gradient(ellipse at 30% 40%, rgba(45, 21, 80, 0.4) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 60%, rgba(20, 15, 60, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at center, #0a0018 0%, #000010 80%);
+  transform: translateZ(-300px) scale(1.5);
+  z-index: 1;
+}
+
+.nebula-bg.layer-2 {
+  background: 
+    radial-gradient(ellipse at 50% 50%, rgba(74, 32, 128, 0.2) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 30%, rgba(45, 60, 120, 0.15) 0%, transparent 50%);
+  transform: translateZ(-200px) scale(1.3);
+  opacity: 0.7;
+  z-index: 2;
+}
+
+.nebula-bg.layer-3 {
+  background:
+    radial-gradient(ellipse at 20% 70%, rgba(126, 200, 255, 0.05) 0%, transparent 40%),
+    radial-gradient(ellipse at 60% 20%, rgba(183, 170, 255, 0.08) 0%, transparent 45%);
+  transform: translateZ(-100px) scale(1.15);
+  opacity: 0.5;
+  z-index: 3;
+  mix-blend-mode: screen;
+}
+
+/* ========================================
+   Orbital Grid Canvas
+   ======================================== */
 
 #orbital-grid {
   position: absolute;
   inset: 0;
-  opacity: 0.25;
-  z-index: -2;
-  transform: translateZ(-200px);
+  opacity: 0.15;
+  z-index: 4;
+  transform: translateZ(-150px);
+  will-change: opacity;
+  mix-blend-mode: screen;
 }
 
-.center-content {
-  position: relative;
-  z-index: 2;
-  transform: translateZ(60px);
-  text-align: center;
+/* ========================================
+   Sacred Geometry Background
+   ======================================== */
+
+.sacred-geometry {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateZ(-80px) scale(1.2);
+  z-index: 5;
+  pointer-events: none;
+  will-change: opacity, transform;
+  transition: opacity 0.6s ease;
 }
 
-#ua9-logo {
-  display: block;
-  margin: 0 auto 0.75rem auto;
-  filter:
-    drop-shadow(0 0 8px rgba(190,180,255,0.5))
-    drop-shadow(0 0 20px rgba(130,210,255,0.3));
+.geometry-pattern {
+  width: 100%;
+  height: 100%;
+  opacity: 0.6;
+}
+
+.flower-of-life {
+  animation: rotateGeometry 60s linear infinite;
   transform-origin: center;
 }
 
-/* ---------- Text ---------- */
+.merkaba {
+  animation: rotateGeometry 40s linear infinite reverse;
+  transform-origin: center;
+}
+
+@keyframes rotateGeometry {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ========================================
+   Energy Beams
+   ======================================== */
+
+.energy-beams {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+  opacity: 0;
+  will-change: opacity;
+}
+
+.beam {
+  position: absolute;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(to bottom, 
+    transparent 0%, 
+    rgba(126, 200, 255, 0.4) 40%, 
+    rgba(183, 170, 255, 0.6) 50%, 
+    rgba(126, 200, 255, 0.4) 60%, 
+    transparent 100%);
+  box-shadow: 0 0 10px rgba(126, 200, 255, 0.5);
+  animation: beamPulse 3s ease-in-out infinite;
+}
+
+.beam-1 {
+  left: 25%;
+  animation-delay: 0s;
+}
+
+.beam-2 {
+  left: 50%;
+  animation-delay: 1s;
+}
+
+.beam-3 {
+  left: 75%;
+  animation-delay: 2s;
+}
+
+@keyframes beamPulse {
+  0%, 100% { opacity: 0.3; transform: scaleY(0.95); }
+  50% { opacity: 0.7; transform: scaleY(1); }
+}
+
+/* ========================================
+   Center Content
+   ======================================== */
+
+.center-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  transform: translateZ(0);
+  will-change: transform, opacity;
+  opacity: 0;
+  animation: fadeInContent 1.5s ease forwards;
+  animation-delay: 0.3s;
+}
+
+@keyframes fadeInContent {
+  from { opacity: 0; transform: translateZ(0) translateY(30px); }
+  to { opacity: 1; transform: translateZ(0) translateY(0); }
+}
+
+/* ========================================
+   Enhanced UNIT A9 Logo
+   ======================================== */
+
+#ua9-logo {
+  display: block;
+  margin: 0 auto 1.5rem auto;
+  filter: drop-shadow(0 0 20px rgba(183, 170, 255, 0.4))
+          drop-shadow(0 0 40px rgba(126, 200, 255, 0.2));
+  transform-origin: center;
+  will-change: transform;
+  animation: logoFloat 6s ease-in-out infinite;
+}
+
+@keyframes logoFloat {
+  0%, 100% { transform: translateY(0) rotateY(0deg); }
+  50% { transform: translateY(-10px) rotateY(5deg); }
+}
+
+/* Pulse Ring Animation */
+.pulse-ring {
+  animation: pulseRing 3s ease-out infinite;
+  transform-origin: center;
+}
+
+@keyframes pulseRing {
+  0% { r: 80; opacity: 0.4; }
+  50% { r: 95; opacity: 0.1; }
+  100% { r: 110; opacity: 0; }
+}
+
+/* Core Sphere Glow */
+.core-sphere {
+  animation: coreGlow 4s ease-in-out infinite;
+}
+
+@keyframes coreGlow {
+  0%, 100% { filter: url(#glow) brightness(1); }
+  50% { filter: url(#glow) brightness(1.3); }
+}
+
+/* Orbital Rings Animation */
+.orbit {
+  animation: orbitRotate 20s linear infinite;
+  transform-origin: 140px 140px;
+}
+
+.orbit-1 { animation-duration: 15s; }
+.orbit-2 { animation-duration: 18s; animation-direction: reverse; }
+.orbit-3 { animation-duration: 22s; }
+.orbit-4 { animation-duration: 16s; animation-direction: reverse; }
+.orbit-5 { animation-duration: 20s; }
+.orbit-6 { animation-duration: 19s; animation-direction: reverse; }
+
+@keyframes orbitRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Orbital Nodes */
+.node {
+  animation: nodeGlow 3s ease-in-out infinite;
+  filter: blur(0);
+}
+
+.node:nth-child(1) { animation-delay: 0s; }
+.node:nth-child(2) { animation-delay: 0.4s; }
+.node:nth-child(3) { animation-delay: 0.8s; }
+.node:nth-child(4) { animation-delay: 1.2s; }
+.node:nth-child(5) { animation-delay: 1.6s; }
+.node:nth-child(6) { animation-delay: 2s; }
+.node:nth-child(7) { animation-delay: 2.4s; }
+.node:nth-child(8) { animation-delay: 2.8s; }
+
+@keyframes nodeGlow {
+  0%, 100% { opacity: 0.7; filter: blur(0); }
+  50% { opacity: 1; filter: blur(1px); }
+}
+
+/* Sacred Ring */
+.sacred-ring {
+  animation: ringPulse 5s ease-in-out infinite;
+}
+
+@keyframes ringPulse {
+  0%, 100% { opacity: 0.4; stroke-width: 3; }
+  50% { opacity: 0.7; stroke-width: 4; }
+}
+
+/* ========================================
+   Typography
+   ======================================== */
+
 .title {
-  font-size: 3.4rem;
-  letter-spacing: 0.12em;
-  background: linear-gradient(to right, #e2e2ff, #8ad8ff);
+  font-size: clamp(3rem, 8vw, 5rem);
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  background: linear-gradient(135deg, #ffffff 0%, #e2e2ff 30%, #8ad8ff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 40px rgba(138, 216, 255, 0.3);
+  animation: titleShimmer 8s ease-in-out infinite;
 }
+
+@keyframes titleShimmer {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.2); }
+}
+
 .subtitle {
-  font-size: 1.15rem;
+  font-size: clamp(1rem, 2.5vw, 1.4rem);
+  font-weight: 300;
   color: #bfc7e6;
   opacity: 0.9;
+  letter-spacing: 0.08em;
+  margin-bottom: 2rem;
 }
-.scroll-cue {
-  width: 2px; height: 40px;
-  margin: 1.5rem auto 0;
-  background: linear-gradient(to bottom, #bfc7e6, transparent);
+
+/* ========================================
+   Scroll Indicator
+   ======================================== */
+
+.scroll-indicator {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+.scroll-line {
+  width: 2px;
+  height: 50px;
+  background: linear-gradient(to bottom, #8ad8ff, transparent);
   opacity: 0.6;
-  animation: cue 2s ease-in-out infinite;
-}
-@keyframes cue {
-  0%,100% { transform: translateY(0); opacity: 0.6; }
-  50% { transform: translateY(8px); opacity: 0.2; }
+  animation: scrollCue 2s ease-in-out infinite;
 }
 
-/* ---------- Logo Animation ---------- */
-.stroke-draw {
-  stroke-dasharray: 700;
-  stroke-dashoffset: 700;
-  animation: drawPath 2.8s ease forwards;
-}
-@keyframes drawPath {
-  from { stroke-dashoffset: 700; opacity: 0; }
-  to   { stroke-dashoffset: 0; opacity: 1; }
-}
-#ua9-logo .nodes circle {
-  fill: #b7aaff;
-  opacity: 0;
-  animation: nodeGlow 3s ease forwards;
-  animation-delay: 2.4s;
-}
-@keyframes nodeGlow {
-  0%   { opacity: 0; transform: scale(0.6); filter: blur(3px); }
-  60%  { opacity: 1; transform: scale(1.2); filter: blur(0); }
-  100% { opacity: 0.9; transform: scale(1); }
+@keyframes scrollCue {
+  0%, 100% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(12px); opacity: 0.2; }
 }
 
-/* ---------- Particles ---------- */
-.logo-particle {
-  position: absolute;
-  width: 5px; height: 5px;
-  background: radial-gradient(circle, #dcd2ff 0%, #7ee4ff 60%, transparent 100%);
-  border-radius: 50%;
-  pointer-events: none;
-  mix-blend-mode: screen;
-  opacity: 0.8;
-  filter: blur(2px);
-  animation: particleFade 3s linear forwards;
-  z-index: 5;
-}
-@keyframes particleFade {
-  0% { opacity: 1; transform: scale(0.7); }
-  80% { opacity: 0.6; transform: scale(1); }
-  100% { opacity: 0; transform: scale(1.2); }
-}
+/* ========================================
+   Pixie Field - Ambient Particles
+   ======================================== */
 
-/* ---------- Ambient Pixie Field ---------- */
 #pixie-field {
   position: absolute;
   inset: 0;
   overflow: hidden;
   pointer-events: none;
-  z-index: 1;
+  z-index: 8;
   transform-style: preserve-3d;
 }
+
 .pixie {
   position: absolute;
   width: 3px;
@@ -141,50 +363,345 @@ html, body {
   background: radial-gradient(circle, #dcd2ff 0%, #7ee4ff 60%, transparent 100%);
   opacity: 0.8;
   mix-blend-mode: screen;
-  filter: blur(2px);
-  animation: drift 20s linear infinite;
+  filter: blur(1px);
+  will-change: transform, opacity;
+  --velocity-y: 0px;
 }
+
 @keyframes drift {
-  0%   { transform: translate3d(0,0,0) scale(1); opacity: 0.9; }
-  50%  { opacity: 0.7; }
-  100% { transform: translate3d(var(--dx), var(--dy), var(--dz)) scale(1.2); opacity: 0.2; }
+  0% { 
+    transform: translate3d(0, var(--velocity-y, 0px), 0) scale(1); 
+    opacity: 0.9; 
+  }
+  50% { 
+    opacity: 0.7; 
+  }
+  100% { 
+    transform: translate3d(var(--dx), calc(var(--dy) + var(--velocity-y, 0px)), var(--dz)) scale(1.2); 
+    opacity: 0.2; 
+  }
 }
 
-/* ---------- Enclave Section ---------- */
-#enclave {
-  min-height: 100vh;
-  background: radial-gradient(circle at center, #050510, #000);
-  text-align: center;
-  padding-top: 20vh;
-  color: #fff;
-}
-.hidden { display: none; }
-/* ---------- Cosmic Singularity ---------- */
-#singularity {
+/* ========================================
+   Floating Orbs
+   ======================================== */
+
+.floating-orbs {
   position: absolute;
-  bottom: 10vh;
-  left: 50%;
-  transform: translateX(-50%) translateY(20vh) scale(0.4);
-  opacity: 0;
+  inset: 0;
   pointer-events: none;
-  z-index: -1;
-  transition: transform 0.4s ease, opacity 0.4s ease;
+  z-index: 7;
+  transform-style: preserve-3d;
 }
 
-#singularity img {
-  width: 480px;
-  max-width: 60vw;
-  filter:
-    drop-shadow(0 0 25px rgba(185,130,255,0.4))
-    drop-shadow(0 0 60px rgba(150,120,255,0.2))
-    blur(0.5px);
-  opacity: 0.9;
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, 
+    rgba(220, 210, 255, 0.8) 0%, 
+    rgba(126, 200, 255, 0.4) 50%, 
+    transparent 100%);
+  filter: blur(20px);
+  mix-blend-mode: screen;
+  opacity: 0.6;
+  will-change: transform;
 }
-#singularity img {
-  animation: spinGlow 40s linear infinite;
+
+.orb-1 {
+  width: 150px;
+  height: 150px;
+  top: 15%;
+  left: 10%;
+  animation: floatOrb 15s ease-in-out infinite;
 }
-@keyframes spinGlow {
-  0%   { transform: rotate(0deg); filter: brightness(1) blur(0.5px); }
-  50%  { transform: rotate(180deg); filter: brightness(1.3) blur(1px); }
-  100% { transform: rotate(360deg); filter: brightness(1) blur(0.5px); }
+
+.orb-2 {
+  width: 200px;
+  height: 200px;
+  top: 60%;
+  right: 15%;
+  animation: floatOrb 18s ease-in-out infinite;
+  animation-delay: -5s;
+}
+
+.orb-3 {
+  width: 100px;
+  height: 100px;
+  bottom: 20%;
+  left: 20%;
+  animation: floatOrb 12s ease-in-out infinite;
+  animation-delay: -8s;
+}
+
+.orb-4 {
+  width: 180px;
+  height: 180px;
+  top: 30%;
+  right: 25%;
+  animation: floatOrb 20s ease-in-out infinite;
+  animation-delay: -12s;
+}
+
+.orb-5 {
+  width: 120px;
+  height: 120px;
+  bottom: 35%;
+  right: 10%;
+  animation: floatOrb 16s ease-in-out infinite;
+  animation-delay: -3s;
+}
+
+@keyframes floatOrb {
+  0%, 100% { 
+    transform: translate3d(0, 0, 0) scale(1); 
+    opacity: 0.6; 
+  }
+  25% { 
+    transform: translate3d(30px, -40px, 20px) scale(1.1); 
+    opacity: 0.8; 
+  }
+  50% { 
+    transform: translate3d(-20px, -70px, -10px) scale(0.9); 
+    opacity: 0.5; 
+  }
+  75% { 
+    transform: translate3d(-40px, -30px, 15px) scale(1.05); 
+    opacity: 0.7; 
+  }
+}
+
+/* ========================================
+   Journey Section
+   ======================================== */
+
+.journey-section {
+  position: relative;
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #000000 0%, #050510 50%, #0a0018 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+}
+
+.journey-content {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  padding: 4rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rem;
+}
+
+/* ========================================
+   Cosmic Singularity
+   ======================================== */
+
+.singularity-container {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  opacity: 0;
+  transform: scale(0.8) translateY(50px);
+  will-change: transform, opacity;
+}
+
+.singularity-graphic {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 0 40px rgba(185, 130, 255, 0.3))
+          drop-shadow(0 0 80px rgba(150, 120, 255, 0.15));
+  animation: voidSpin 50s linear infinite;
+}
+
+@keyframes voidSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.spiral {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: drawSpiral 8s ease-in-out infinite;
+}
+
+@keyframes drawSpiral {
+  0%, 100% { stroke-dashoffset: 1000; opacity: 0.3; }
+  50% { stroke-dashoffset: 0; opacity: 0.8; }
+}
+
+/* ========================================
+   Geometry Accent
+   ======================================== */
+
+.geometry-accent {
+  position: relative;
+  width: 400px;
+  max-width: 80vw;
+  opacity: 0;
+  transform: translateY(50px);
+  will-change: transform, opacity;
+}
+
+.geometry-accent svg {
+  width: 100%;
+  height: auto;
+}
+
+.rotating-hex {
+  animation: rotateHex 30s linear infinite;
+  transform-origin: center;
+}
+
+@keyframes rotateHex {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ========================================
+   CTA Section
+   ======================================== */
+
+.cta-section {
+  position: relative;
+  min-height: 100vh;
+  background: radial-gradient(ellipse at center, #0a0018 0%, #000010 60%, #000000 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 30;
+}
+
+.cta-content {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.cta-title {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  background: linear-gradient(135deg, #ffffff 0%, #b7aaff 50%, #7ec8ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1rem;
+  opacity: 0;
+  transform: translateY(30px);
+  will-change: transform, opacity;
+}
+
+.cta-subtitle {
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  color: #bfc7e6;
+  opacity: 0;
+  margin-bottom: 3rem;
+  transform: translateY(30px);
+  will-change: transform, opacity;
+}
+
+/* ========================================
+   Get Started Button
+   ======================================== */
+
+.get-started-btn {
+  position: relative;
+  padding: 1.2rem 3rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: #ffffff;
+  background: linear-gradient(135deg, rgba(74, 32, 128, 0.6) 0%, rgba(45, 21, 80, 0.4) 100%);
+  border: 2px solid rgba(183, 170, 255, 0.5);
+  border-radius: 50px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  opacity: 0;
+  transform: translateY(30px) scale(0.95);
+  will-change: transform, opacity;
+  box-shadow: 
+    0 0 20px rgba(126, 200, 255, 0.3),
+    0 0 40px rgba(183, 170, 255, 0.2),
+    inset 0 0 20px rgba(255, 255, 255, 0.05);
+}
+
+.btn-text {
+  position: relative;
+  z-index: 2;
+}
+
+.btn-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, 
+    rgba(183, 170, 255, 0.4) 0%, 
+    transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 1;
+}
+
+.get-started-btn:hover {
+  transform: translateY(30px) scale(1.05);
+  border-color: rgba(183, 170, 255, 0.8);
+  box-shadow: 
+    0 0 30px rgba(126, 200, 255, 0.5),
+    0 0 60px rgba(183, 170, 255, 0.3),
+    inset 0 0 30px rgba(255, 255, 255, 0.1);
+}
+
+.get-started-btn:hover .btn-glow {
+  opacity: 1;
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+.get-started-btn:active {
+  transform: translateY(30px) scale(0.98);
+}
+
+/* ========================================
+   Responsive Design
+   ======================================== */
+
+@media (max-width: 768px) {
+  #ua9-logo {
+    width: 200px;
+    height: 200px;
+  }
+
+  .title {
+    font-size: 3rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .get-started-btn {
+    padding: 1rem 2.5rem;
+    font-size: 1rem;
+  }
+
+  .orb {
+    filter: blur(15px);
+  }
+}
+
+@media (max-width: 480px) {
+  #ua9-logo {
+    width: 160px;
+    height: 160px;
+  }
+
+  .title {
+    font-size: 2.5rem;
+  }
 }
