@@ -20,6 +20,36 @@ window.addEventListener("scroll", () => {
 
   // Show button near end
   const btn = document.getElementById("enter");
+  // --- Fade transition into the Enclave ---
+const enterBtn = document.getElementById("enter");
+
+if (enterBtn) {
+  enterBtn.addEventListener("click", () => {
+    // Create fade overlay
+    const fade = document.createElement("div");
+    fade.id = "fade-overlay";
+    document.body.appendChild(fade);
+
+    // Animate the fade-in
+    fade.style.opacity = "0";
+    fade.style.transition = "opacity 2s ease-in-out";
+    fade.style.position = "fixed";
+    fade.style.top = "0";
+    fade.style.left = "0";
+    fade.style.width = "100%";
+    fade.style.height = "100%";
+    fade.style.background = "black";
+    fade.style.zIndex = "999";
+    setTimeout(() => (fade.style.opacity = "1"), 10);
+
+    // After fade completes, show the Enclave UI
+    setTimeout(() => {
+      window.location.href = "#enclave"; // or load your layers directly later
+      fade.style.opacity = "0";
+    }, 2500);
+  });
+}
+
   if (btn) {
     if (progress > 0.95) btn.classList.remove("hidden");
     else btn.classList.add("hidden");
