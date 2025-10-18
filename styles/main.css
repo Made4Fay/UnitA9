@@ -1,0 +1,34 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: radial-gradient(circle at center, #0a0a0a 0%, #000 100%);
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  overflow: hidden;
+}
+
+header {
+  text-align: center;
+  padding: 2rem 1rem;
+  letter-spacing: 2px;
+}
+
+.subtitle {
+  color: #aaa;
+  font-weight: 300;
+}
+
+.center {
+  text-align: center;
+  margin-top: 20vh;
+}
+
+#galaxy-root {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
