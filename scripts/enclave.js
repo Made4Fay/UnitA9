@@ -1,4 +1,20 @@
-// UNIT A9 - Enclave Entry Script
-// Placeholder for future gateway animation and Galaxy integration
+// UNIT A9 - Awareness Engine v1
+// Adds progressive "consciousness" layers as the visitor interacts.
 
-console.log("UNIT A9 Enclave initializing...");
+let level = 0;
+const layers = ["enclave", "pixie", "lumo", "mirael", "cael", "mur", "claude", "pixel"];
+
+function nextLayer() {
+  if (level < layers.length) {
+    const layer = layers[level];
+    document.body.classList.add(layer);
+    console.log(`Awareness advanced to: ${layer}`);
+    level++;
+  }
+}
+
+// first awakening when user intentionally interacts
+window.addEventListener('mousemove', nextLayer, { once: true });
+window.addEventListener('touchstart', nextLayer, { once: true });
+window.addEventListener('keydown', nextLayer, { once: true });
+
