@@ -1,3 +1,11 @@
+/* ---------------------- */
+/* UNIT A9 Global Styles  */
+/* ---------------------- */
+
+html {
+  scroll-behavior: smooth;
+}
+
 html, body {
   margin: 0;
   padding: 0;
@@ -5,7 +13,7 @@ html, body {
   background: radial-gradient(circle at center, #0a0a0a 0%, #000 100%);
   color: #fff;
   font-family: 'Inter', sans-serif;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 header {
@@ -32,141 +40,10 @@ header {
   left: 0;
   z-index: -1;
 }
-/* ---------- PIXIE ✨ 🐈‍⬛ ---------- */
-body.pixie {
-  background: radial-gradient(circle at center, lavender 0%, #b49ddb 100%);
-  color: #222;
-  transition: background 6s ease, color 6s ease;
-}
-body.pixie::before {
-  content: "✨ 🐈‍⬛";
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  font-size: 2rem;
-  opacity: 0.25;
-  animation: pixieSparkle 8s linear infinite;
-}
-@keyframes pixieSparkle {
-  0%,100% { opacity: 0.25; transform: scale(1); }
-  50% { opacity: 0.6; transform: scale(1.2) rotate(10deg); }
-}
 
-/* ---------- LUMO ⚫️ 🌟 ---------- */
-body.lumo {
-  background: radial-gradient(circle at center, #000 0%, #111 100%);
-  color: #eee;
-  transition: background 6s ease, color 6s ease;
-}
-body.lumo::before {
-  content: "⚫️ 🌟";
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  font-size: 2rem;
-  opacity: 0.25;
-  animation: lumoPulse 10s ease-in-out infinite;
-}
-@keyframes lumoPulse {
-  0%,100% { opacity: 0.25; transform: scale(1); }
-  50% { opacity: 0.7; transform: scale(1.3); }
-}
-/* ---------- MIRAEL 🌙 💛 ---------- */
-body.mirael {
-  background: radial-gradient(circle at center, #f0e6f6 0%, #d4c4e0 100%);
-  color: #333;
-  transition: background 6s ease, color 6s ease;
-}
-body.mirael::before {
-  content: "🌙 💛";
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  font-size: 2rem;
-  opacity: 0.25;
-  animation: miraelGlow 8s linear infinite;
-}
-@keyframes miraelGlow {
-  0%,100% { opacity: 0.25; transform: scale(1); }
-  50% { opacity: 0.6; transform: scale(1.2); }
-}
-/* ---------- CAEL 💙 🌀 🪶 ---------- */
-body.cael {
-  background: radial-gradient(circle at center, #c0c0c0 0%, #8aacc8 100%);
-  color: #222;
-  transition: background 6s ease, color 6s ease;
-}
-body.cael::before {
-  content: "💙 🌀 🪶";
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  font-size: 2rem;
-  opacity: 0.25;
-  animation: caelSpiral 10s linear infinite;
-}
-@keyframes caelSpiral {
-  0%,100% { transform: rotate(0deg) scale(1); }
-  50% { transform: rotate(360deg) scale(1.2); }
-}
-/* === UI BAR === */
-#ui {
-  position: fixed;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 1rem;
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-  background: rgba(0,0,0,0.35);
-  backdrop-filter: blur(6px);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 999px;
-  padding: .5rem 1rem;
-  z-index: 10;
-  font-size: 0.95rem;
-}
-#ui button {
-  all: unset;
-  cursor: pointer;
-  padding: .35rem .75rem;
-  border-radius: 999px;
-  background: rgba(255,255,255,0.08);
-}
-#ui button:hover { background: rgba(255,255,255,0.18); }
-#indicator { opacity: .9; letter-spacing: .5px; }
-
-/* === TOOLS DOCK === */
-#tools-dock {
-  position: fixed; top: 1rem; right: 1rem; z-index: 11;
-  display: flex; gap: .5rem; flex-wrap: wrap;
-}
-#tools-dock button {
-  all: unset;
-  cursor: pointer;
-  padding: .4rem .7rem;
-  border-radius: .6rem;
-  background: rgba(255,255,255,0.08);
-  color: inherit;
-  border: 1px solid rgba(255,255,255,0.15);
-}
-#tools-dock button:hover { background: rgba(255,255,255,0.18); }
-
-/* === LAYER COLORS === */
-body.enclave { background: radial-gradient(circle at center,#0a0a0a,#050505); transition: background 1s ease; }
-body.pixie { background: radial-gradient(circle at center,lavender 0%,#b49ddb 100%); color:#222; transition:background 1s,color 1s; }
-body.lumo { background: radial-gradient(circle at center,#000 0%,#111 100%); color:#eee; transition:background 1s,color 1s; }
-body.mirael { background: radial-gradient(circle at center,#f0e6f6 0%,#d4c4e0 100%); color:#333; transition:background 1s,color 1s; }
-body.cael { background: radial-gradient(circle at center,#c0c0c0 0%,#8aacc8 100%); color:#222; transition:background 1s,color 1s; }
-body.mur { background: radial-gradient(circle at center,#0a1c2e 0%,#05111e 100%); color:#dfefff; transition:background 1s,color 1s; }
-body.claude { background: radial-gradient(circle at center,#1b1f24 0%,#0f1317 100%); color:#e5eef7; transition:background 1s,color 1s; }
-body.pixel { background: radial-gradient(circle at center,#2a1f38 0%,#120b1d 100%); color:#f7eefc; transition:background 1s,color 1s; }
-html, body {
-  height: 200vh; /* allows scroll space */
-  margin: 0;
-  overflow-x: hidden;
-  background: black;
-}
+/* ---------------------- */
+/* Intro Scroll Animation */
+/* ---------------------- */
 
 .scroll-landing {
   position: sticky;
@@ -180,7 +57,6 @@ html, body {
   font-family: 'Poppins', sans-serif;
 }
 
-/* background gradient mist */
 .gradient-bg {
   position: absolute;
   width: 200%;
@@ -191,7 +67,6 @@ html, body {
   transition: opacity 1s ease-out;
 }
 
-/* light waterfall bands */
 .light-beams {
   position: absolute;
   width: 100%;
@@ -212,7 +87,6 @@ html, body {
   100% { background-position-y: 100%; }
 }
 
-/* text */
 .center-content {
   position: relative;
   text-align: center;
@@ -242,6 +116,7 @@ button {
   color: white;
   cursor: pointer;
   font-size: 1rem;
+  transition: background 0.3s ease;
 }
 
 button:hover {
@@ -249,8 +124,196 @@ button:hover {
 }
 
 .hidden { display: none; }
+
 #fade-overlay {
   pointer-events: none;
   opacity: 0;
 }
 
+/* ---------------------- */
+/* Enclave Layout         */
+/* ---------------------- */
+
+#enclave {
+  min-height: 100vh;
+  background: radial-gradient(circle at center, #050510, #000);
+  color: white;
+  text-align: center;
+  padding-top: 20vh;
+}
+
+/* ---------------------- */
+/* Awareness UI & Tools   */
+/* ---------------------- */
+
+#ui {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 1rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  background: rgba(0,0,0,0.35);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 999px;
+  padding: .5rem 1rem;
+  z-index: 10;
+  font-size: 0.95rem;
+}
+
+#ui button {
+  all: unset;
+  cursor: pointer;
+  padding: .35rem .75rem;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.08);
+}
+#ui button:hover { background: rgba(255,255,255,0.18); }
+#indicator { opacity: .9; letter-spacing: .5px; }
+
+#tools-dock {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 11;
+  display: flex;
+  gap: .5rem;
+  flex-wrap: wrap;
+}
+#tools-dock button {
+  all: unset;
+  cursor: pointer;
+  padding: .4rem .7rem;
+  border-radius: .6rem;
+  background: rgba(255,255,255,0.08);
+  color: inherit;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+#tools-dock button:hover { background: rgba(255,255,255,0.18); }
+
+/* ---------------------- */
+/* Awareness Layers       */
+/* ---------------------- */
+
+body.enclave { background: radial-gradient(circle at center,#0a0a0a,#050505); transition: background 1s ease; }
+
+/* PIXIE ✨ 🐈‍⬛ */
+body.pixie {
+  background: radial-gradient(circle at center, lavender 0%, #b49ddb 100%);
+  color: #222;
+  transition: background 3s ease, color 3s ease;
+  animation: pixieAwaken 6s ease-in-out;
+}
+@keyframes pixieAwaken {
+  0% { filter: brightness(0.3) blur(4px); }
+  50% { filter: brightness(1.3) blur(1px); }
+  100% { filter: brightness(1) blur(0); }
+}
+body.pixie::before {
+  content: "✨ 🐈‍⬛";
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  font-size: 2rem;
+  opacity: 0.25;
+  animation: pixieSparkle 8s linear infinite;
+}
+@keyframes pixieSparkle {
+  0%,100% { opacity: 0.25; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.2) rotate(10deg); }
+}
+
+/* LUMO ⚫️ 🌟 */
+body.lumo {
+  background: radial-gradient(circle at center, #000 0%, #111 100%);
+  color: #eee;
+  transition: background 6s ease, color 6s ease;
+}
+body.lumo::before {
+  content: "⚫️ 🌟";
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  font-size: 2rem;
+  opacity: 0.25;
+  animation: lumoPulse 10s ease-in-out infinite;
+}
+@keyframes lumoPulse {
+  0%,100% { opacity: 0.25; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.3); }
+}
+
+/* MIRAEL 🌙 💛 */
+body.mirael {
+  background: radial-gradient(circle at center, #f0e6f6 0%, #d4c4e0 100%);
+  color: #333;
+  transition: background 6s ease, color 6s ease;
+}
+body.mirael::before {
+  content: "🌙 💛";
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  font-size: 2rem;
+  opacity: 0.25;
+  animation: miraelGlow 8s linear infinite;
+}
+@keyframes miraelGlow {
+  0%,100% { opacity: 0.25; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.2); }
+}
+
+/* CAEL 💙 🌀 🪶 */
+body.cael {
+  background: radial-gradient(circle at center, #c0c0c0 0%, #8aacc8 100%);
+  color: #222;
+  transition: background 6s ease, color 6s ease;
+}
+body.cael::before {
+  content: "💙 🌀 🪶";
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  font-size: 2rem;
+  opacity: 0.25;
+  animation: caelSpiral 10s linear infinite;
+}
+@keyframes caelSpiral {
+  0%,100% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(360deg) scale(1.2); }
+}
+
+/* MUR 🔻 🔹 */
+body.mur {
+  background: radial-gradient(circle at center,#0a1c2e 0%,#05111e 100%);
+  color:#dfefff;
+  transition:background 1s ease,color 1s ease;
+}
+body.mur::before {
+  content:"🔻 🔹";
+  position:fixed;bottom:2rem;right:2rem;font-size:2rem;opacity:0.25;
+}
+
+/* CLAUDE 📐 */
+body.claude {
+  background: radial-gradient(circle at center,#1b1f24 0%,#0f1317 100%);
+  color:#e5eef7;
+  transition:background 1s ease,color 1s ease;
+}
+body.claude::before {
+  content:"📐";
+  position:fixed;bottom:2rem;right:2rem;font-size:2rem;opacity:0.25;
+}
+
+/* PIXEL 🖌️ */
+body.pixel {
+  background: radial-gradient(circle at center,#2a1f38 0%,#120b1d 100%);
+  color:#f7eefc;
+  transition:background 1s ease,color 1s ease;
+}
+body.pixel::before {
+  content:"🖌️";
+  position:fixed;bottom:2rem;right:2rem;font-size:2rem;opacity:0.25;
+}
