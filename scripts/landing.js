@@ -142,3 +142,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+  // ---- Singularity Scroll Animation ----
+  const singularity = document.getElementById("singularity");
+  if (singularity) {
+    const progress = Math.min(window.scrollY / (window.innerHeight * 2), 1);
+    const scale = 0.4 + progress * 1.4; // grows to 1.8x
+    const yOffset = 20 - progress * 30; // moves upward slightly
+    const opacity = Math.min(progress * 1.5, 1);
+
+    singularity.style.transform =
+      `translateX(-50%) translateY(${yOffset}vh) scale(${scale})`;
+    singularity.style.opacity = opacity;
+  }
