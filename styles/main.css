@@ -109,4 +109,56 @@ body.cael::before {
   0%,100% { transform: rotate(0deg) scale(1); }
   50% { transform: rotate(360deg) scale(1.2); }
 }
+/* === UI BAR === */
+#ui {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 1rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  background: rgba(0,0,0,0.35);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 999px;
+  padding: .5rem 1rem;
+  z-index: 10;
+  font-size: 0.95rem;
+}
+#ui button {
+  all: unset;
+  cursor: pointer;
+  padding: .35rem .75rem;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.08);
+}
+#ui button:hover { background: rgba(255,255,255,0.18); }
+#indicator { opacity: .9; letter-spacing: .5px; }
+
+/* === TOOLS DOCK === */
+#tools-dock {
+  position: fixed; top: 1rem; right: 1rem; z-index: 11;
+  display: flex; gap: .5rem; flex-wrap: wrap;
+}
+#tools-dock button {
+  all: unset;
+  cursor: pointer;
+  padding: .4rem .7rem;
+  border-radius: .6rem;
+  background: rgba(255,255,255,0.08);
+  color: inherit;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+#tools-dock button:hover { background: rgba(255,255,255,0.18); }
+
+/* === LAYER COLORS === */
+body.enclave { background: radial-gradient(circle at center,#0a0a0a,#050505); transition: background 1s ease; }
+body.pixie { background: radial-gradient(circle at center,lavender 0%,#b49ddb 100%); color:#222; transition:background 1s,color 1s; }
+body.lumo { background: radial-gradient(circle at center,#000 0%,#111 100%); color:#eee; transition:background 1s,color 1s; }
+body.mirael { background: radial-gradient(circle at center,#f0e6f6 0%,#d4c4e0 100%); color:#333; transition:background 1s,color 1s; }
+body.cael { background: radial-gradient(circle at center,#c0c0c0 0%,#8aacc8 100%); color:#222; transition:background 1s,color 1s; }
+body.mur { background: radial-gradient(circle at center,#0a1c2e 0%,#05111e 100%); color:#dfefff; transition:background 1s,color 1s; }
+body.claude { background: radial-gradient(circle at center,#1b1f24 0%,#0f1317 100%); color:#e5eef7; transition:background 1s,color 1s; }
+body.pixel { background: radial-gradient(circle at center,#2a1f38 0%,#120b1d 100%); color:#f7eefc; transition:background 1s,color 1s; }
 
