@@ -1,33 +1,15 @@
-/* ----------------------------- */
-/* UNIT A9 GLOBAL BASE           */
-/* ----------------------------- */
-
-html {
-  scroll-behavior: smooth;
-}
 html, body {
   margin: 0;
   padding: 0;
-  height: 300vh;          /* scroll space */
+  height: 300vh;
   background: #000;
   color: #fff;
   font-family: 'Inter', sans-serif;
   overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
-/* screen-reader hidden heading */
-.sr-only {
-  position: absolute !important;
-  width: 1px; height: 1px;
-  padding: 0; margin: -1px;
-  overflow: hidden; clip: rect(0,0,1px,1px);
-  white-space: nowrap; border: 0;
-}
-
-/* ----------------------------- */
-/* SCROLL-DRIVEN LANDING INTRO   */
-/* ----------------------------- */
-
+/* ---------- 3D Scene ---------- */
 .scroll-landing {
   position: sticky;
   top: 0;
@@ -36,127 +18,144 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
-  font-family: 'Poppins', sans-serif;
+  perspective: 800px;
+  transform-style: preserve-3d;
+  transition: transform 0.2s ease-out;
 }
 
-.gradient-bg,
-.light-beams {
+.nebula-bg {
   position: absolute;
-  width: 200%;
-  height: 200%;
-  transition: transform 0.1s linear;
+  inset: 0;
+  background: radial-gradient(circle at center, #0a0018 0%, #000010 80%);
+  background-image: url("../images/nebula-texture.png");
+  background-size: cover;
+  filter: brightness(1.15);
+  z-index: -3;
+  transform: translateZ(-400px) scale(1.4);
 }
-.gradient-bg {
-  background: radial-gradient(circle at center, #0a0015 0%, #020007 100%);
-}
-.light-beams {
-  background: repeating-linear-gradient(
-    0deg,
-    rgba(173, 216, 230, 0.05),
-    rgba(173, 216, 230, 0.15) 2px,
-    rgba(147, 112, 219, 0.1) 8px
-  );
-  background-size: 100% 600%;
-  animation: flow 8s linear infinite;
-  opacity: 0.4;
-}
-@keyframes flow {
-  0%   { background-position-y: 0; }
-  100% { background-position-y: 100%; }
+
+#orbital-grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.25;
+  z-index: -2;
+  transform: translateZ(-200px);
 }
 
 .center-content {
   position: relative;
-  text-align: center;
   z-index: 2;
-  transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+  transform: translateZ(60px);
+  text-align: center;
 }
 
-/* Spiral Logo */
 #ua9-logo {
   display: block;
   margin: 0 auto 0.75rem auto;
-  transform: rotate(var(--logo-rot, 0deg)) scale(var(--logo-scale, 1));
-  transition: transform 0.06s linear;
-  filter: drop-shadow(0 0 20px rgba(178,163,255,.08));
-}
-@media (prefers-reduced-motion: no-preference) {
-  #ua9-logo:not(.scrubbing) {
-    animation: ua9-breathe 8s ease-in-out infinite;
-  }
-}
-@keyframes ua9-breathe {
-  0% { transform: rotate(0deg) scale(1); }
-  50%{ transform: rotate(2deg) scale(1.02); }
- 100%{ transform: rotate(0deg) scale(1); }
+  filter:
+    drop-shadow(0 0 8px rgba(190,180,255,0.5))
+    drop-shadow(0 0 20px rgba(130,210,255,0.3));
+  transform-origin: center;
 }
 
-/* Text and Button */
+/* ---------- Text ---------- */
 .title {
-  font-size: 3rem;
-  letter-spacing: 0.1em;
-  opacity: var(--title-opacity, 1);
-  transform: scale(var(--title-scale, 1));
+  font-size: 3.4rem;
+  letter-spacing: 0.12em;
+  background: linear-gradient(to right, #e2e2ff, #8ad8ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 .subtitle {
-  font-size: 1.1rem;
-  opacity: var(--subtitle-opacity, 0.7);
-  color: #bfbfd6;
+  font-size: 1.15rem;
+  color: #bfc7e6;
+  opacity: 0.9;
 }
-button {
-  margin-top: 2rem;
-  padding: 0.8rem 1.8rem;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.3);
-  border-radius: 1rem;
-  color: white;
-  cursor: pointer;
-  font-size: 1rem;
+.scroll-cue {
+  width: 2px; height: 40px;
+  margin: 1.5rem auto 0;
+  background: linear-gradient(to bottom, #bfc7e6, transparent);
+  opacity: 0.6;
+  animation: cue 2s ease-in-out infinite;
+}
+@keyframes cue {
+  0%,100% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(8px); opacity: 0.2; }
+}
+
+/* ---------- Logo Animation ---------- */
+.stroke-draw {
+  stroke-dasharray: 700;
+  stroke-dashoffset: 700;
+  animation: drawPath 2.8s ease forwards;
+}
+@keyframes drawPath {
+  from { stroke-dashoffset: 700; opacity: 0; }
+  to   { stroke-dashoffset: 0; opacity: 1; }
+}
+#ua9-logo .nodes circle {
+  fill: #b7aaff;
   opacity: 0;
-  transform: translateY(10px);
-  transition: all 0.6s ease;
+  animation: nodeGlow 3s ease forwards;
+  animation-delay: 2.4s;
 }
-button.visible { opacity: 1; transform: translateY(0); }
-.hidden { display: none; }
-
-/* Fade transition */
-body.fade-out { animation: fadeOut 1.2s ease forwards; }
-@keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
-
-/* ----------------------------- */
-/* ENCLAVE / AWARENESS SYSTEM    */
-/* ----------------------------- */
-
-#enclave {
-  min-height: 100vh;
-  background: radial-gradient(circle at center, #050510, #000);
-  color: white;
-  text-align: center;
-  padding-top: 20vh;
+@keyframes nodeGlow {
+  0%   { opacity: 0; transform: scale(0.6); filter: blur(3px); }
+  60%  { opacity: 1; transform: scale(1.2); filter: blur(0); }
+  100% { opacity: 0.9; transform: scale(1); }
 }
 
-/* ----------------------------- */
-/* PIXIE LAYER PARTICLES         */
-/* ----------------------------- */
+/* ---------- Particles ---------- */
+.logo-particle {
+  position: absolute;
+  width: 5px; height: 5px;
+  background: radial-gradient(circle, #dcd2ff 0%, #7ee4ff 60%, transparent 100%);
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 0.8;
+  filter: blur(2px);
+  animation: particleFade 3s linear forwards;
+  z-index: 5;
+}
+@keyframes particleFade {
+  0% { opacity: 1; transform: scale(0.7); }
+  80% { opacity: 0.6; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.2); }
+}
 
+/* ---------- Ambient Pixie Field ---------- */
 #pixie-field {
-  position: fixed;
+  position: absolute;
   inset: 0;
   overflow: hidden;
   pointer-events: none;
-  z-index: 0;
+  z-index: 1;
+  transform-style: preserve-3d;
 }
-.particle {
+.pixie {
   position: absolute;
-  width: 4px;
-  height: 4px;
-  background: rgba(220, 180, 255, 0.8);
+  width: 3px;
+  height: 3px;
   border-radius: 50%;
+  background: radial-gradient(circle, #dcd2ff 0%, #7ee4ff 60%, transparent 100%);
+  opacity: 0.8;
+  mix-blend-mode: screen;
   filter: blur(2px);
-  animation: floatPixie linear infinite;
+  animation: drift 20s linear infinite;
 }
-@keyframes floatPixie {
-  from { transform: translateY(0) scale(1); opacity: 0.9; }
-  to   { transform: translateY(-120vh) scale(1.3); opacity: 0; }
+@keyframes drift {
+  0%   { transform: translate3d(0,0,0) scale(1); opacity: 0.9; }
+  50%  { opacity: 0.7; }
+  100% { transform: translate3d(var(--dx), var(--dy), var(--dz)) scale(1.2); opacity: 0.2; }
 }
+
+/* ---------- Enclave Section ---------- */
+#enclave {
+  min-height: 100vh;
+  background: radial-gradient(circle at center, #050510, #000);
+  text-align: center;
+  padding-top: 20vh;
+  color: #fff;
+}
+.hidden { display: none; }
