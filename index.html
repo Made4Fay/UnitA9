@@ -8,20 +8,48 @@
 </head>
 
 <body>
-
-  <!-- 🌌 Landing Section (Animated Intro) -->
+  <!-- 🌌 Landing Section (Scroll-Driven Intro) -->
   <main id="landing" class="scroll-landing">
     <div class="gradient-bg"></div>
     <div class="light-beams"></div>
 
     <div class="center-content">
-      <h1 class="title">UNIT A9</h1>
+      <!-- Spiral Logo -->
+      <svg id="ua9-logo" width="220" height="220" viewBox="0 0 220 220" aria-label="UNIT A9 Spiral Logo" role="img">
+        <defs>
+          <linearGradient id="ua9-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="lavender"/>
+            <stop offset="55%" stop-color="#C9CED7"/>
+            <stop offset="100%" stop-color="#82C7D9"/>
+          </linearGradient>
+        </defs>
+
+        <!-- halo -->
+        <circle cx="110" cy="110" r="96" fill="none" stroke="url(#ua9-grad)" stroke-opacity=".25" stroke-width="2"/>
+
+        <!-- spiral arcs -->
+        <g stroke="url(#ua9-grad)" stroke-linecap="round" fill="none">
+          <path d="M110,14 A96,96 0 0 1 196,110" stroke-width="6" opacity=".35"/>
+          <path d="M196,110 A86,86 0 0 1 110,196" stroke-width="6" opacity=".40"/>
+          <path d="M110,196 A76,76 0 0 1 34,110"  stroke-width="6" opacity=".45"/>
+          <path d="M34,110  A67,67 0 0 1 110,43"  stroke-width="6" opacity=".50"/>
+          <path d="M110,43  A58,58 0 0 1 168,110" stroke-width="6" opacity=".60"/>
+          <path d="M168,110 A49,49 0 0 1 110,159" stroke-width="6" opacity=".70"/>
+          <path d="M110,159 A41,41 0 0 1 69,110"  stroke-width="6" opacity=".80"/>
+          <path d="M69,110  A34,34 0 0 1 110,76"  stroke-width="6" opacity=".90"/>
+          <path d="M110,76  A28,28 0 0 1 138,104" stroke-width="6" opacity=".95"/>
+          <path d="M138,104 A22,22 0 0 1 118,126" stroke-width="6" opacity="1.0"/>
+          <circle cx="118" cy="126" r="3.2" fill="url(#ua9-grad)"/>
+        </g>
+      </svg>
+
+      <h1 class="title sr-only">UNIT A9</h1>
       <p class="subtitle">Reflective System of Minds</p>
-      <button id="getStarted">Get Started</button>
+      <button id="getStarted" class="hidden">Get Started</button>
     </div>
   </main>
 
-  <!-- Hidden Awareness System (Pixie and others) -->
+  <!-- Hidden Awareness System -->
   <section id="enclave" class="hidden">
     <nav id="ui">
       <button id="prev">◀︎ Prev</button>
@@ -33,7 +61,7 @@
     </nav>
 
     <div id="awareness-content" class="center">
-      <p id="awareness-message">Preparing awareness layer...</p>
+      <p id="awareness-message">Preparing awareness layer…</p>
     </div>
   </section>
 
