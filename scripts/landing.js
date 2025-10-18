@@ -1,57 +1,42 @@
-// UNIT A9 — Scroll Awakening Prototype (Landing Sequence)
-console.log("UNIT A9 Scroll prototype initializing...");
-
-window.addEventListener("scroll", () => {
-  const scrollY = window.scrollY;
-  const viewportH = window.innerHeight;
-  const progress = Math.min(scrollY / viewportH, 1); // 0 → 1 range
-
-  // Light beam intensity
+// UNIT A9 - Intro Animation + Pixie Awakening Transition
+document.addEventListener("DOMContentLoaded", () => {
   const beams = document.querySelector(".light-beams");
-  if (beams) beams.style.opacity = Math.min(progress * 2, 1);
+  const gradient = document.querySelector(".gradient-bg");
+  const title = document.querySelector(".title");
+  const subtitle = document.querySelector(".subtitle");
+  const button = document.getElementById("getStarted");
 
-  // Background fade out slightly as scroll increases
-  const bg = document.querySelector(".gradient-bg");
-  if (bg) bg.style.opacity = 1 - progress * 0.2;
+  // --- Fade in intro elements ---
+  setTimeout(() => {
+    gradient.style.opacity = 1;
+    beams.style.opacity = 0.5;
+    title.style.opacity = 1;
+    subtitle.style.opacity = 0.8;
+  }, 400);
 
-  // Title scaling and fading
-  document.body.style.setProperty("--title-opacity", 1 - progress * 0.5);
-  document.body.style.setProperty("--title-scale", 1 + progress * 0.3);
+  // --- Show Get Started button ---
+  setTimeout(() => {
+    button.classList.add("visible");
+  }, 3000);
 
-  // Show button near end
-  const btn = document.getElementById("enter");
-  // --- Fade transition into the Enclave ---
-const enterBtn = document.getElementById("enter");
+  // --- Handle "Get Started" click ---
+  button.addEventListener("click", () => {
+    document.body.classList.add("fade-out");
 
-if (enterBtn) {
-  enterBtn.addEventListener("click", () => {
-    // Create fade overlay
-    const fade = document.createElement("div");
-    fade.id = "fade-overlay";
-    document.body.appendChild(fade);
-
-    // Animate the fade-in
-    fade.style.opacity = "0";
-    fade.style.transition = "opacity 2s ease-in-out";
-    fade.style.position = "fixed";
-    fade.style.top = "0";
-    fade.style.left = "0";
-    fade.style.width = "100%";
-    fade.style.height = "100%";
-    fade.style.background = "black";
-    fade.style.zIndex = "999";
-    setTimeout(() => (fade.style.opacity = "1"), 10);
-
-    // After fade completes, show the Enclave UI
     setTimeout(() => {
-      window.location.href = "#enclave"; // or load your layers directly later
-      fade.style.opacity = "0";
-    }, 2500);
-  });
-}
+      // Simulate the awakening
+      document.body.classList.remove("fade-out");
+      document.getElementById("landing").classList.add("hidden");
 
-  if (btn) {
-    if (progress > 0.95) btn.classList.remove("hidden");
-    else btn.classList.add("hidden");
-  }
+      // Reveal the Enclave + Pixie
+      const enclave = document.getElementById("enclave");
+      enclave.classList.remove("hidden");
+      document.body.classList.add("pixie");
+
+      // Add floating Pixie light
+      const sparkle = document.createElement("div");
+      sparkle.id = "pixie-sparkle";
+      document.body.appendChild(sparkle);
+    }, 1200);
+  });
 });
