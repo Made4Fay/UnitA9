@@ -344,3 +344,38 @@ body.fade-out {
   from { opacity: 1; }
   to { opacity: 0; }
 }
+/* === ✨ PIXIE AWAKENING EFFECT === */
+#pixie-sparkle {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.15), rgba(180,157,219,0.1), transparent 70%);
+  pointer-events: none;
+  animation: pixieAwaken 8s ease-in-out infinite alternate;
+  z-index: 0;
+}
+
+@keyframes pixieAwaken {
+  0% {
+    opacity: 0.15;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(1.05);
+    filter: blur(2px);
+  }
+  100% {
+    opacity: 0.2;
+    transform: scale(1);
+  }
+}
+
+body.fade-out {
+  animation: fadeOut 1.2s ease forwards;
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
